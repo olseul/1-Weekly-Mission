@@ -1,7 +1,12 @@
-import React from "react";
 import "./FolderItem.css";
 
-const FolderItem = ({ id, name, onFolderClick }) => (
+interface FolderItemProps {
+  id: number;
+  name: string;
+  onFolderClick: (id: number) => void;
+}
+
+const FolderItem = ({ id, name, onFolderClick }: FolderItemProps) => (
   <div className="folder-item" onClick={() => onFolderClick(id)}>
     {name}
   </div>
