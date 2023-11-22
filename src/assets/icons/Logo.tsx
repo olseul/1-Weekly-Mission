@@ -1,4 +1,8 @@
-const Logo = (props) => {
+interface LogoProps {
+  className?: string;
+}
+
+const Logo = (props: LogoProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
