@@ -5,12 +5,12 @@ import SearchIcon from "../../assets/icons/SearchIcon";
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
-  const handleChange = (event) => {
-    setSearchTerm(event.target.value);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
   };
 
   return (
