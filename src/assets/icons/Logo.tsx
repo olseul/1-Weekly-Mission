@@ -1,5 +1,6 @@
 interface LogoProps {
   className?: string;
+  alt?: string;
 }
 
 const Logo = (props: LogoProps) => {
