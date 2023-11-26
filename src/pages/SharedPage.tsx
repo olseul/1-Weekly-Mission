@@ -8,7 +8,7 @@ import SearchBar from "../components/SearchBar";
 const SharedPage = () => {
   return (
     <div>
-      <Navbar />
+      <Navbar isFolderPage={false} />
       <FolderOwnerInfo />
       <SearchBar />
       <CardList isFolderPage={false} />

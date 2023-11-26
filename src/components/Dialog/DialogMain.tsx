@@ -1,14 +1,21 @@
-import React from "react";
+import React, { ReactNode } from "react";
 
-const DialogMain = ({ children }) => {
+interface DialogProps {
+  children: ReactNode;
+}
+const DialogMain = ({ children }: DialogProps) => {
   return <div className="dialog">{children}</div>;
 };
 
-const DialogTitle = ({ children }) => {
+const DialogTitle = ({ children }: DialogProps) => {
   return <h2>{children}</h2>;
 };
 
-const DialogCloseButton = ({ onClick, children }) => {
+interface DialogCloseButtonProps extends DialogProps {
+  onClick: () => void;
+}
+
+const DialogCloseButton = ({ onClick, children }: DialogCloseButtonProps) => {
   return <button onClick={onClick}>{children}</button>;
 };
 

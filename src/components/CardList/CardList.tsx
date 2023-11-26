@@ -5,8 +5,20 @@ import API from "../../utils/api";
 
 interface CardListProps {
   isFolderPage: boolean;
-  folderId?: number;
+  folderId?: number | null;
   updateHasLinks?: (hasLinks: boolean) => void;
+}
+
+interface Link {
+  id: number;
+  createdAt: string | null;
+  imageSource: string | null;
+  title: string | null;
+  url: string;
+  description: string | null;
+  folder_id: number | null;
+  created_at: string | null;
+  image_source: string | null;
 }
 
 const CardList = ({
@@ -14,7 +26,7 @@ const CardList = ({
   folderId,
   updateHasLinks,
 }: CardListProps) => {
-  const [links, setLinks] = useState([]);
+  const [links, setLinks] = useState<Link[]>([]);
   const userId = 1;
 
   useEffect(() => {
