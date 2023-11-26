@@ -18,6 +18,18 @@ form {
   box-shadow: none;
 }
 
+.search-form {
+  position: relative;
+}
+
+.close-icon {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
 .search-icon {
   position: relative;
   left: -30px;

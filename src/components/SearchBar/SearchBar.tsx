@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./SearchBar.css";
 import SearchIcon from "../../assets/icons/SearchIcon";
+import CloseIcon from "../../assets/icons/Close";
 
 interface SearchBarProps {
   setSearchTerm: (searchTerm: string) => void;
@@ -18,9 +19,13 @@ const SearchBar = ({ setSearchTerm }: SearchBarProps) => {
     setSearchTerm(localSearchTerm);
   };
 
+  const handleClear = () => {
+    setLocalSearchTerm("");
+  };
+
   return (
     <div className="search-bar-container">
-      <form onSubmit={handleSubmit}>
+      <form className="search-form" onSubmit={handleSubmit}>
         <SearchIcon />
         <input
           className="search-input"
@@ -29,6 +34,9 @@ const SearchBar = ({ setSearchTerm }: SearchBarProps) => {
           onChange={handleChange}
           placeholder="링크를 검색해 보세요."
         />
+        {localSearchTerm && (
+          <CloseIcon className="close-icon" onClick={handleClear} />
+        )}
       </form>
     </div>
   );
