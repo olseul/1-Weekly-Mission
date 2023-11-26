@@ -10,8 +10,8 @@ const SharedPage = () => {
     <div>
       <Navbar isFolderPage={false} />
       <FolderOwnerInfo />
-      <SearchBar />
-      <CardList isFolderPage={false} />
+      {/* <SearchBar />
+      <CardList isFolderPage={false} /> */}
       <Footer />
     </div>
   );

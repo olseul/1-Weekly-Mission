@@ -3,31 +3,48 @@ import { timeDifference } from "../../utils/timeUtils";
 import Star from "../../assets/icons/Star";
 import Kebab from "../../assets/icons/Kebab";
 
-interface CardProp {
-  link: {
-    id: number;
-    created_at: string | null;
-    updated_at: string | null;
-    url: string;
-    title: string | null;
-    description: string | null;
-    image_source: string | null;
-    folder_id: number | null;
-  };
+interface FolderPageLink {
+  id: number;
+  created_at: string | null;
+  image_source: string | null;
+  title: string | null;
+  url: string;
+  description: string | null;
+  folder_id: number | null;
+}
+
+interface SharePageLink {
+  id: number;
+  createdAt: string | null;
+  imageSource: string | null;
+  title: string | null;
+  url: string;
+  description: string | null;
+  folder_id: number | null;
+}
+
+type LinkProp = FolderPageLink | SharePageLink;
+
+interface CardProps {
+  link: LinkProp;
   isFolderPage: boolean;
 }
 
-const Card = ({ link, isFolderPage }: CardProp) => {
+const Card = ({ link, isFolderPage }: CardProps) => {
   if (!link) {
     return null;
   }
 
-  const createdAtField = isFolderPage ? "created_at" : "createdAt";
-  const imageSourceField = isFolderPage ? "image_source" : "imageSource";
+  const createdAt = isFolderPage
+    ? (link as FolderPageLink).created_at
+    : (link as SharePageLink).createdAt;
+  const imageSource = isFolderPage
+    ? (link as FolderPageLink).image_source
+    : (link as SharePageLink).imageSource;
 
   const currentTime = new Date().getTime();
-  const createdAt = new Date(link[createdAtField]).getTime();
-  const timeDiffText = timeDifference(currentTime, createdAt);
+  const createdTime = createdAt ? new Date(createdAt).getTime() : currentTime;
+  const timeDiffText = timeDifference(currentTime, createdTime);
 
   return (
     <div
@@ -39,7 +56,7 @@ const Card = ({ link, isFolderPage }: CardProp) => {
           <Star />
         </button>
       )}
-      <ImageSection link={link} imageSourceField={imageSourceField} />
+      <ImageSection link={link} imageSource={imageSource} />
       <div className="card-text">
         {isFolderPage ? (
           <FolderPageHeader timeDiffText={timeDiffText} />
@@ -53,14 +70,24 @@ const Card = ({ link, isFolderPage }: CardProp) => {
   );
 };
 
-const ImageSection = ({ link, imageSourceField }) =>
-  link[imageSourceField] ? (
-    <img src={link[imageSourceField]} alt={link.title} />
+interface ImageSectionProps {
+  link: LinkProp;
+  imageSource: string | null;
+}
+
+const ImageSection = ({ link, imageSource }: ImageSectionProps) => {
+  return imageSource ? (
+    <img src={imageSource} alt={link.title || "이미지"} />
   ) : (
     <div className="no-image">이미지가 없습니다.</div>
   );
+};
 
-const FolderPageHeader = ({ timeDiffText }) => (
+interface DateProp {
+  timeDiffText: string;
+}
+
+const FolderPageHeader = ({ timeDiffText }: DateProp) => (
   <div className="card-text-top">
     <span className="date">{timeDiffText}</span>
     <button className="kebab-button">

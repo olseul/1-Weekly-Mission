@@ -23,6 +23,7 @@ const FolderPage = () => {
   const [selectedFolder, setSelectedFolder] = useState<string>("전체");
   const [folders, setFolders] = useState<FolderProp[]>([]);
   const [hasLinks, setHasLinks] = useState<boolean>(true);
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const userId = 1;
 
   const [showDialog, setShowDialog] = useState(false); // 다이얼로그 상태 관리 추가
@@ -62,7 +63,7 @@ const FolderPage = () => {
     <div>
       <Navbar isFolderPage={true} />
       <LinkInput />
-      <SearchBar />
+      <SearchBar setSearchTerm={setSearchTerm} />
       {hasLinks && (
         <div className="folders">
           <div className="folder-list">
@@ -117,6 +118,7 @@ const FolderPage = () => {
         isFolderPage={true}
         folderId={selectedFolderId}
         updateHasLinks={setHasLinks}
+        searchTerm={searchTerm}
       />
       {showDialog && (
         <Dialog>

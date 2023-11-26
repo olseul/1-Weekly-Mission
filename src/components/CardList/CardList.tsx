@@ -7,6 +7,7 @@ interface CardListProps {
   isFolderPage: boolean;
   folderId?: number | null;
   updateHasLinks?: (hasLinks: boolean) => void;
+  searchTerm: string;
 }
 
 interface Link {
@@ -25,6 +26,7 @@ const CardList = ({
   isFolderPage,
   folderId,
   updateHasLinks,
+  searchTerm, // 검색어 prop 추가
 }: CardListProps) => {
   const [links, setLinks] = useState<Link[]>([]);
   const userId = 1;
@@ -55,14 +57,25 @@ const CardList = ({
       });
   }, [isFolderPage, folderId, updateHasLinks]);
 
+  const filteredLinks = links.filter((link) => {
+    // 검색어가 비어있으면 모든 링크 표시
+    if (!searchTerm) return true;
+    // url, title, description 중 하나라도 검색어를 포함하면 표시
+    return (
+      link.url.includes(searchTerm) ||
+      link.title?.includes(searchTerm) ||
+      link.description?.includes(searchTerm)
+    );
+  });
+
   return (
     <div className="card-list">
-      {links.length ? (
-        links.map((link) => (
+      {filteredLinks.length ? (
+        filteredLinks.map((link) => (
           <Card key={link.id} link={link} isFolderPage={isFolderPage} />
         ))
       ) : (
-        <div className="no-link">저장된 링크가 없습니다.</div>
+        <div className="no-link">검색된 링크가 없습니다.</div>
       )}
     </div>
   );
